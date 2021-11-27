@@ -806,7 +806,7 @@ char inputsUsuario[4];
 int inputsUserConferemComNmrsAleatorios = 0; // false 0 | true 1;
 int tipoJogo = 1; //jogo facil 1 | dificil 2
 int tamanhoSequencia = 1;
-int pontuacao = 0;
+unsigned char pontuacao = 0;
 
 unsigned int DURACAO;
 
@@ -2919,11 +2919,10 @@ void MOSTRA_TELA_ATENCAO()
 
 void MOSTRA_PONTUACAO()
 {
-    char c_pontuacao = pontuacao - 48;
     _asm MOV AH, 0 
     _asm MOV AL, 4
     GLCD_GOTO_XY_TEXT();    
-    _asm mov al, c_pontuacao
+    _asm mov al, pontuacao
     MANDAR_NUMERO_LCD();
 }
 
