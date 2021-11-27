@@ -19,7 +19,7 @@
 //ONDE VOCE VAI MANDAR E RECEBER DADOS DO 8251
 
 #define ADR_USART_CMD   (IO9 + 02h)
-//? O LOCAL ONDE VOCE VAI ESCREVER PARA PROGRAMAR O 8251
+//� O LOCAL ONDE VOCE VAI ESCREVER PARA PROGRAMAR O 8251
 //WRITE 1202H
 
 #define ADR_USART_STAT  (IO9 + 02h)
@@ -27,13 +27,13 @@
 //RETORNA O STATUS SE POSSO TRANSMITIR CARACTER PARA O TERMINAL
 //READ 1202H 
 
-//ENDERE?OS DOS REGISTRADORES DO 8255
+//ENDERE�OS DOS REGISTRADORES DO 8255
 #define ADR_PPI_PORTA	  (IO10)
 #define ADR_PPI_PORTB	  (IO10 + 02h)
 #define ADR_PPI_PORTC	  (IO10 + 04h)
 #define ADR_PPI_CONTROL	  (IO10 + 06h)
 
-//ENDERE?OS DOS REGISTRADORES DO 8255 PARA CONTROLAR DISPLAY GRAFICO
+//ENDERE�OS DOS REGISTRADORES DO 8255 PARA CONTROLAR DISPLAY GRAFICO
 #define ADR_PPI_PORTA_LCD	  (IO11)
 #define ADR_PPI_PORTB_LCD	  (IO11 + 02h)
 #define ADR_PPI_PORTC_LCD	  (IO11 + 04h)
@@ -54,11 +54,11 @@
 #define PPI_MODE_ACH_2	  40h  //01000000
 #define PPI_ACTIVE	  80h  //10000000
 
-//O 8253 ? UM CHIP DA INTEL QUE CONSEGUE PEGAR UMA FREQUENCIA DE ENTRADA E DIVIDE
+//O 8253 � UM CHIP DA INTEL QUE CONSEGUE PEGAR UMA FREQUENCIA DE ENTRADA E DIVIDE
 //POR UM VALOR DE 16 BITS O QUAL PRODUZ UMA UMA FREQUENCIA MENOR
-//ESTAS FREQUENCIA MENOR PODE SER UM "D?" POR EXEMPLO
-//A FREQUENCIA DE ENTRADA ? DE 100Khz
-//SE QUISERMOS POR EXEMPLO PRODUZIR UM D? (523.25HZ), TEMOS QUE DIVIDIR 100.000HZ POR X PARA
+//ESTAS FREQUENCIA MENOR PODE SER UM "D�" POR EXEMPLO
+//A FREQUENCIA DE ENTRADA � DE 100Khz
+//SE QUISERMOS POR EXEMPLO PRODUZIR UM D� (523.25HZ), TEMOS QUE DIVIDIR 100.000HZ POR X PARA
 //PRODUZIR 523.25HZ, OU SEJA, X = 0BFH
 //PARA USO DO 8253, VOCE DEVE MAPEAR IO CONFORME ABAIXO (VEJA QUAL ESTA LIVRE EM SEU PROJETO)
 
@@ -120,9 +120,6 @@ unsigned char SSS = 0;
 unsigned char MMM = 0;
 unsigned char HHH = 0;
 
-unsigned char RECORD = 0;
-unsigned char PONTUACAO = 0;
-
 
 //VARIAVEIS AUXILIARES
 unsigned char GLCD_CONTROL = 0;
@@ -156,7 +153,7 @@ unsigned char GENIUS[] = {4,4,0x00,0xE0,0x18,0x0C,0x04,0x02,0x02,0x02,0x02,0x02,
 0x00,0x07,0x18,0x30,0x20,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,
 0x7F,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x20,0x30,0x18,0x07,0x00};
 
-// header de apresenta??o "GENIUS"
+// header de apresenta��o "GENIUS"
 unsigned char HEADER[] = {6,2,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFE,0x82,0x92,0x92,0xF2,0x00,0xFE,0x92,
 0x92,0x92,0x00,0xFE,0x0C,0x10,0x20,0xFE,0x00,0xFE,0x00,0xFE,0x80,0x80,0x80,0xFE,
 0x00,0x9E,0x92,0x92,0xF2,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -205,7 +202,7 @@ unsigned char GENIUS_BOTAO3[] = {4,4,0x00,0xE0,0x18,0x0C,0x04,0x02,0x02,0x02,0x0
 0x7F,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x40,0x20,0x30,0x18,0x07,0x00};
 
 // desenho da palavra "record" que tem que ter em algum lugar
-unsigned char RECORD[] = {6,2,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFE,0x12,0x72,0xDE,0x80,0x00,0xFE,0x92,
+unsigned char TELA_RECORD[] = {6,2,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFE,0x12,0x72,0xDE,0x80,0x00,0xFE,0x92,
 0x92,0x92,0x00,0xFE,0x82,0x82,0x82,0x00,0xFE,0x82,0x82,0xFE,0x00,0xFE,0x12,0x72,
 0xDE,0x80,0x00,0xFE,0x82,0x82,0x7C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -213,7 +210,7 @@ unsigned char RECORD[] = {6,2,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFE,0x12,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 
 // Desenho da palavra "pontuacao" 
-unsigned char PONTUACAO[] = {6,2,0x00,0x00,0x00,0xFC,0x24,0x24,0x3C,0x00,0xFC,0x84,0x84,0xFC,0x00,0xFC,0x0C,0x30,
+unsigned char TELA_PONTUACAO[] = {6,2,0x00,0x00,0x00,0xFC,0x24,0x24,0x3C,0x00,0xFC,0x84,0x84,0xFC,0x00,0xFC,0x0C,0x30,
 0x40,0xFC,0x00,0x04,0xFC,0x04,0x00,0xFC,0x80,0x80,0xFC,0x00,0xFC,0x24,0x24,0xFC,
 0x00,0xFC,0x84,0x84,0x00,0xFC,0x25,0x25,0xFC,0x00,0xFC,0x84,0x84,0xFC,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -226,6 +223,7 @@ unsigned char DIFICIL[] = {4,2, 0x00,0x00,0x00,0x00,0xF8,0x88,0x88,0x70,0x00,0xF
 0x02,0xF9,0x88,0x88,0x00,0xF8,0x00,0xF8,0x80,0x80,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+
 
 // DESENHO DA PALAVRA "FACIL"
 unsigned char FACIL[] = {4,2, 0x00,0x00,0x00,0x00,0x00,0xF8,0x28,0x28,0x00,0xF8,0x28,0xFA,0x01,0xF8,0x88,0x88,
@@ -728,7 +726,12 @@ void MOSTRA_TIMER();
 
 unsigned int SEED = 2020;
 
-char numerosAleatorios[1024];
+unsigned int FREQ[] = {100000/262,100000/262,100000/294,100000/262,100000/349,100000/330,100000/262,100000/262,100000/294,100000/262,100000/392,100000/349,100000/262,100000/523,100000/440,100000/349,100000/330,100000/294,100000/466,100000/466,100000/440,100000/349,100000/392,100000/349};
+unsigned int DURA[] = {1,1,2,2,2,3,1,1,2,2,2,3,1,1,2,2,2,2,4,1,1,2,2,2,3};
+
+// vari�veis para o GEN
+int numeroPartidasPorJogo = 4;
+char numerosAleatorios[4];
 char inputsUsuario[4];
 int inputsUserConferemComNmrsAleatorios = 0; // false 0 | true 1;
 int tipoJogo = 1; //jogo facil 1 | dificil 2
@@ -736,15 +739,21 @@ int tamanhoSequencia = 1;
 
 unsigned int DURACAO;
 
+//------------
 unsigned char RANDOM_TABLE[10];
+
+char MENS4[] = {"DIGITE A SEQUENCIA ABAIXO: "};
+char MENS5[] = {"PRESSIONE QUALQUER TECLA PARA INICIAR"};
+char MENS6[] = {"VOC� ERROU!!!"};
 
 char ACERTOU_SEQUENCIA;
 
 unsigned int Random_Table_Indice_Acertos;
 
+
 char SEQUENCIA[] = {
    "AASKDFJAKSJFKLASJFKLASJDKLFJASKLFJAKLSJFKASRWEFASDHFJASDHFJSHDJFHJKASDJKFHJASDHJKVNKASDFHJSHFJKSDHFJKSDH"};
-   //NULL ? INSERIDO PELO COMPILADOR 
+   //NULL � INSERIDO PELO COMPILADOR 
    
 char MENS7[] = {"A OCORRENCIA DA LETRA "};
 char MENS8[] = {" = "};
@@ -1621,7 +1630,7 @@ RECEBER_STRING_SAI_NUMERO:
       // ax = al * xx
       mov ah, 10  //multiplicador
       mov al, ch
-      mul ah  // ax <==== al * ah // neste caso, ax ter? 10 
+      mul ah  // ax <==== al * ah // neste caso, ax ter� 10 
       add al, cl //veja, temos em AL o byte!!!!!!!      
       pop cx
       pop bx
@@ -1636,7 +1645,7 @@ void MANDAR_NUMERO(void)
  _asm
  {
       pushf
-      push ax //pq estas salvando al, se al ? parametro ? na verdade estou salvando ah
+      push ax //pq estas salvando al, se al � parametro ? na verdade estou salvando ah
       push bx
       mov ah, 0
       mov bh, 10
@@ -1658,7 +1667,7 @@ void MANDAR_NUMERO_LCD(void)
  _asm
  {
       pushf
-      push ax //pq estas salvando al, se al ? parametro ? na verdade estou salvando ah
+      push ax //pq estas salvando al, se al � parametro ? na verdade estou salvando ah
       push bx
       mov ah, 0
       mov bh, 10
@@ -1707,7 +1716,7 @@ void INICIALIZA_8251(void)
 }
 
 //TENHA CERTEZA QUE O CARACTER ESTEJA EM AL
-//AL ? A PASSAGEM DE PARAMETRO - (POR REGISTRADOR)
+//AL � A PASSAGEM DE PARAMETRO - (POR REGISTRADOR)
 void MANDA_CARACTER(void)
 {
    _asm {
@@ -1749,7 +1758,7 @@ NAO_RECEBIDO:
    }
 }
 
-//SE O PROGRAMA CHEGOU AT? AQUI, FOI POR INTERRUPCAO DA CONTROLADORA DO TECLADO
+//SE O PROGRAMA CHEGOU AT� AQUI, FOI POR INTERRUPCAO DA CONTROLADORA DO TECLADO
 //BASTA ENTAO APENAS LER!!!!
 void RECEBER_CARACTER_INT(void)
 {
@@ -1788,7 +1797,7 @@ RECEBER_CARACTER_NO_BLOCKING_SAI:
    }
 }
 
-//esta n?o ser? chamada mais por vc
+//esta n�o ser� chamada mais por vc
 //mas sim pelo tratador de interrupcao
 void RECEBER_CARACTER_INTERRUPT(void)
 {
@@ -1825,7 +1834,7 @@ void Testa_74154(void)
 //1s
 void Pausa(void)
 {
-   //esta Rotina ser? transformada em Assembly e far? uso de registradores
+   //esta Rotina ser� transformada em Assembly e far� uso de registradores
    unsigned int Cont = 65535;
    while(Cont--)
    {
@@ -2080,14 +2089,14 @@ GOTSEED:
 
 void gerarNumerosAleatorios(void)
 {
-    // vai chamar a fun??o random e colocar dentro de inputsUsuario 10 numeros random de 0..3
+    // vai chamar a fun��o random e colocar dentro de inputsUsuario 10 numeros random de 0..3
    _asm 
    {
       mov di, 0
-      mov cx, 1024 //utilizado para controlar repeticao (loop)      
+      mov cx, numeroPartidasPorJogo //utilizado para controlar repeticao (loop)      
 GERANDO_RANDOM:
       call RANDOM //retorna em AL um numero de 0..255 xxxxxxxx
-      and al,0b00000011
+      and  al,0b00000011
       mov numerosAleatorios[di], al
       inc  di
       loop GERANDO_RANDOM      
@@ -2097,7 +2106,7 @@ GERANDO_RANDOM:
 int numero;
 void imprimirNumerosAleatorios()
 {
-    // com base no n?mero recebido como par?metro, vai imprimir tal quadrante pintado
+    // com base no n�mero recebido como par�metro, vai imprimir tal quadrante pintado
 
     for (int i = 0; i < tamanhoSequencia; i++)
     {
@@ -2239,19 +2248,19 @@ void ComparaJogo()
     {
         numeroAleatorio = numerosAleatorios[i];
         inputUsuario = (int)inputsUsuario[i] - 48;
-        // if com essa compara??o pra servir de "break"
+        // if com essa compara��o pra servir de "break"
       //   if (inputsUserConferemComNmrsAleatorios != 0)
       //   {
          _asm
          {
-            // vai comparar os numeros e ver se s?o iguais
+            // vai comparar os numeros e ver se s�o iguais
             VERIFICACAO:
                   mov al, numeroAleatorio
                   cmp al, inputUsuario
-                  je SAO_IGUAIS // se for, seta a vari?vel em 1 e sai da fun??o
+                  je SAO_IGUAIS // se for, seta a vari�vel em 1 e sai da fun��o
 
                   jmp NAO_SAO_IGUAIS
-                  // seta a vari?vel em 0 e da break
+                  // seta a vari�vel em 0 e da break
 
             SAO_IGUAIS:
                   mov inputsUserConferemComNmrsAleatorios, 1
@@ -2311,31 +2320,39 @@ void RodarJogo()
          GLCD_CLR();
       
          MOSTRA_TELA_SUA_VEZ();
-	 Pausar();
-	 
+         Pausar();
          BuildTela();
          LerInputUser();
          GLCD_CLR();
          ComparaJogo();
-	 
+
          if (inputsUserConferemComNmrsAleatorios == 1)
          {
-               tamanhoSequencia++;
+               if ((tamanhoSequencia + 1) < numeroPartidasPorJogo)
+               {
+                  tamanhoSequencia++;
+               }
+               else 
+               {
+                  tamanhoSequencia = 1; //GANHOU
+                  GLCD_CLR();
+                  MOSTRA_TELA_GANHOU();
+                  Pausar();
+                  Pausar();
+                  iniciarJogo();
+               }
          }
         else
         {
-            if (tipoJogo == 2) 
-	    {
-		  GLCD_CLR();
-		  MOSTRA_TELA_PERDEU();
-		  gerarNumerosAleatorios();
-		  Pausar();
-		  Pausar();
-		  tamanhoSequencia = 1;
-		  iniciarJogo();
-	    } 
+            if (tipoJogo == 2) gerarNumerosAleatorios(); //PERDEU
+            GLCD_CLR();
+            MOSTRA_TELA_PERDEU();
+            tamanhoSequencia = 1;
+            Pausar();
+            Pausar();
+            iniciarJogo();
         }
-    } while (true);
+    } while (inputsUserConferemComNmrsAleatorios == 1);
 }
 
 
@@ -2429,6 +2446,7 @@ void set_int(unsigned char int_no, void * service_proc)
 
 void TOCAR()
 {
+  
    int key =  nota -48;
    switch (key)
    {
@@ -2449,6 +2467,7 @@ void TOCAR()
       DESLIGA_SOM();
       break;
    default:
+      DESLIGA_SOM();
       DESLIGA_SOM();
       break;
    }
@@ -2501,10 +2520,88 @@ void INICIALIZA_8259(void)
     }
 }
 
+//retorna em AL o random
+
+// Vai preencher um vetor de 20 posi��es com n�meros de 0 at� 3
+void Preenche_Random_Table(void)
+{
+   _asm 
+   {
+      mov di, 0
+      mov cx, 10 //utilizado para controlar repeticao (loop)      
+GERANDO_RANDOM:
+      call RANDOM //retorna em AL um numero de 0..255 xxxxxxxx
+      and  al,0b00000011
+      mov RANDOM_TABLE[di],al
+      inc  di
+      loop GERANDO_RANDOM      
+   }   
+}
+
+// 
+void Imprime_Random_Table(void)
+{
+   _asm 
+   {
+      pushf
+      push si
+      push ax
+      mov si, 0 //aponta para o primeiro elemento da tabela
+Pega_Proximo_Random_Table:      
+      mov al, RANDOM_TABLE[si]
+      add al, '0'
+      call MANDA_CARACTER
+      cmp si, Random_Table_Indice_Acertos
+      je Sai_Imprime_Random_Table
+      inc si 
+      jmp Pega_Proximo_Random_Table
+Sai_Imprime_Random_Table:      
+      call PULA_LINHA
+      pop ax
+      pop si
+      popf
+   }  
+}
+
+//Esta Rotina pedira que voce digite a sequencia!!!!
+void Verifica_Random_Table(void)
+{ 
+   _asm
+   {
+      pushf
+      push ax
+      push di
+      mov DI, 0            
+Acertos_Verifica_Random_Table:      
+      CALL RECEBER_CARACTER //al sera comparado com a tabela
+      CMP  AL,'0'
+      JL   Acertos_Verifica_Random_Table
+      CMP  AL,'3'
+      JG   Acertos_Verifica_Random_Table      
+      sub al, '0'          //tranforma de ASCII para BINARIO
+      cmp al, RANDOM_TABLE[DI]
+      jne Erro_Verifica_Random_Table
+      cmp di,Random_Table_Indice_Acertos 
+      je Parabens_Verifica_Random_Table
+      inc di //avanca para proxima posicao da tabela
+      jmp Acertos_Verifica_Random_Table      
+Erro_Verifica_Random_Table:
+      mov ACERTOU_SEQUENCIA,'N'
+      jmp Sai_Verifica_Random_Table
+Parabens_Verifica_Random_Table:
+      mov ACERTOU_SEQUENCIA,'S'    
+Sai_Verifica_Random_Table:      
+      pop di
+      pop ax
+      popf
+   }
+}
+
 void DESLIGA_SOM()
 {
    _asm mov bx, 0
    INICIALIZA_8253_TIMER0();
+   // Pausar();
 }
 
 
@@ -2545,15 +2642,15 @@ void TOCA_SOM_ERRO()
 
 void MOSTRA_TELA_FACIL()
 {
-    GLCD_CLR();
+     GLCD_CLR();
     _asm MOV AH, 0
     _asm MOV AL, 0
-    _asm lea si, RECORD
+    _asm lea si, TELA_RECORD
     PRINT_ICON();
     
     _asm MOV AH, 0
     _asm MOV AL, 3
-    _asm lea si, PONTUACAO
+    _asm lea si, TELA_PONTUACAO
     PRINT_ICON();
     
     MOSTRA_TIMER();
@@ -2566,15 +2663,15 @@ void MOSTRA_TELA_FACIL()
 
 void MOSTRA_TELA_DIFICIL()
 {
-   GLCD_CLR();
+  GLCD_CLR();
     _asm MOV AH, 0
     _asm MOV AL, 0
-    _asm lea si, RECORD
+    _asm lea si, TELA_RECORD
     PRINT_ICON();
     
     _asm MOV AH, 0
     _asm MOV AL, 3
-    _asm lea si, PONTUACAO
+    _asm lea si, TELA_PONTUACAO
     PRINT_ICON();
     
     
@@ -2590,12 +2687,12 @@ void MOSTRA_TELA_INICIAL(void)
 {
     _asm MOV AH, 0
     _asm MOV AL, 0
-    _asm lea si, RECORD
+    _asm lea si, TELA_RECORD
     PRINT_ICON();
     
     _asm MOV AH, 0
     _asm MOV AL, 3
-    _asm lea si, PONTUACAO
+    _asm lea si, TELA_PONTUACAO
     PRINT_ICON();
     
     
@@ -2634,6 +2731,38 @@ void AGUARDA_TECLA(void)
    SAI_FUNCAO: 
    }
 }
+
+void MOSTRA_RELOGIO(void)
+{
+   _asm MOV AH,0 
+   _asm MOV AL,0 
+   GLCD_GOTO_XY_TEXT();    
+   _asm mov al, HHH
+   MANDAR_NUMERO_LCD();
+   _asm MOV AH,2
+   _asm MOV AL,0 
+   GLCD_GOTO_XY_TEXT();    
+   _asm mov al, ':'
+   PRINT_CAR();
+    
+   _asm MOV AH,3 
+   _asm MOV AL,0 
+   GLCD_GOTO_XY_TEXT();    
+   _asm mov al, MMM
+   MANDAR_NUMERO_LCD();
+   _asm MOV AH,5
+   _asm MOV AL,0 
+   GLCD_GOTO_XY_TEXT();    
+   _asm mov al, ':'
+   PRINT_CAR();
+    
+   _asm MOV AH,6
+   _asm MOV AL,0 
+   GLCD_GOTO_XY_TEXT();    
+   _asm mov al, SSS
+   MANDAR_NUMERO_LCD();
+   
+   }
 
 
 void MOSTRA_TELA_GANHOU()
@@ -2701,39 +2830,43 @@ void MOSTRA_TIMER()
 
 }
 
+//funcao principal
 void main(void)
  {
-   set_int(0x02, (void *)&nmi_handler);      
-   set_int(0x70, (void *)&int0_handler); 
-   set_int(0x71, (void *)&int1_handler);  
-   set_int(0x72, (void *)&int2_handler);    
-   set_int(0x73, (void *)&int3_handler);    
-   set_int(0x74, (void *)&int4_handler);    
-   set_int(0x75, (void *)&int5_handler);   
-   set_int(0x76, (void *)&int6_handler);   
-   set_int(0x77, (void *)&int7_handler);
-   set_int(0x21, (void *)&INT_21H_handler);      
-   set_int(0x10, (void *)&INT_10H_handler);
+   set_int(0x02, (void *)&nmi_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x70, (void *)&int0_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x71, (void *)&int1_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x72, (void *)&int2_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x73, (void *)&int3_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x74, (void *)&int4_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x75, (void *)&int5_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x76, (void *)&int6_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO    
+   set_int(0x77, (void *)&int7_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO  
+   set_int(0x21, (void *)&INT_21H_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO      
+   set_int(0x10, (void *)&INT_10H_handler);   //& RETORNA O ENDERECO DA TRATADORA DE INTERRUPCAO      
     
    INICIALIZA_8259();
-   INICIALIZA_8251();
-   INICIALIZA_8255();
-   INICIALIZA_8255_LCD();
+   //_asm sti // set interrupt 
+   INICIALIZA_8251(); //UMA UNICA VEZ 
+   INICIALIZA_8255(); //UMA UNICA VEZ 
+   INICIALIZA_8255_LCD(); //UMA UNICA VEZ
    GLCD_ATIVA();
+   // GLCD_CLR();
    
    gerarNumerosAleatorios();
    
    int i = 0;
-   
-   GLCD_CLR();  
-   
-   /*
-   while (true)
-   {
-       MOSTRA_TIMER();
-   }
-   */
+   //while (i < 50)
+   //{
+     // MOSTRA_TELA_INICIAL();
+            
+      //i++;
+   //}
+   // GLCD_CLR();
+   // AGUARDA_TECLA();
 
+   // TOCA_SOM_0();
+   // DESLIGA_SOM();
    MOSTRA_TELA_APRESENTACAO();
    Pausar();
    Pausar();
@@ -2741,7 +2874,9 @@ void main(void)
 
    while(true)
    {
+      // GLCD_CLR();      //limpa tela
       iniciarJogo();
       RodarJogo();
+
    }
  }
