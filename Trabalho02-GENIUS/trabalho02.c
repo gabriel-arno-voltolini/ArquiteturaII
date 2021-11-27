@@ -791,6 +791,8 @@ void MOSTRA_TELA_PERDEU();
 void MOSTRA_TELA_SUA_VEZ();
 void MOSTRA_TIMER();
 void MOSTRA_TELA_ATENCAO();
+void MOSTRA_PONTUACAO();
+void MOSTRA_RECORD();
 
 unsigned int SEED = 2020;
 
@@ -2717,6 +2719,8 @@ void TOCA_SOM_ERRO()
 void MOSTRA_TELA_FACIL()
 {
      GLCD_CLR();
+     MOSTRA_PONTUACAO();
+
     _asm MOV AH, 0
     _asm MOV AL, 0
     _asm lea si, TELA_RECORD
@@ -2737,7 +2741,9 @@ void MOSTRA_TELA_FACIL()
 
 void MOSTRA_TELA_DIFICIL()
 {
-  GLCD_CLR();
+   GLCD_CLR();
+   MOSTRA_PONTUACAO();
+
     _asm MOV AH, 0
     _asm MOV AL, 0
     _asm lea si, TELA_RECORD
@@ -2901,7 +2907,6 @@ void MOSTRA_TIMER()
     GLCD_GOTO_XY_TEXT();    
     _asm mov al, MMM
     MANDAR_NUMERO_LCD();
-
 }
 
 void MOSTRA_TELA_ATENCAO()
@@ -2910,6 +2915,21 @@ void MOSTRA_TELA_ATENCAO()
     _asm MOV AL, 0
     _asm lea si, TELA_PRESTE_ATENCAO
     PRINT_ICON();
+}
+
+void MOSTRA_PONTUACAO()
+{
+    char c_pontuacao = pontuacao - 48;
+    _asm MOV AH, 0 
+    _asm MOV AL, 4
+    GLCD_GOTO_XY_TEXT();    
+    _asm mov al, c_pontuacao
+    MANDAR_NUMERO_LCD();
+}
+
+void MOSTRA_RECORD()
+{
+
 }
 
 //funcao principal
