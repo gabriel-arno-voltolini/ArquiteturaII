@@ -807,6 +807,7 @@ int inputsUserConferemComNmrsAleatorios = 0; // false 0 | true 1;
 int tipoJogo = 1; //jogo facil 1 | dificil 2
 int tamanhoSequencia = 1;
 unsigned char pontuacao = 0;
+unsigned char record = 0;
 
 unsigned int DURACAO;
 
@@ -2406,13 +2407,18 @@ void RodarJogo()
                if ((tamanhoSequencia + 1) < numeroPartidasPorJogo)
                {
                   tamanhoSequencia++;
+                  pontuacao++;
                }
                else 
                {
-                  pontuacao++;
                   tamanhoSequencia = 1; //GANHOU
+                  if (pontuacao > record)
+                  {
+                     record = pontuacao;
+                  }
                   GLCD_CLR();
                   MOSTRA_TELA_GANHOU();
+                  pontuacao = 0;
                   Pausar();
                   Pausar();
                   iniciarJogo();
@@ -2725,6 +2731,8 @@ void MOSTRA_TELA_FACIL()
     _asm MOV AL, 0
     _asm lea si, TELA_RECORD
     PRINT_ICON();
+
+    MOSTRA_RECORD();
     
     _asm MOV AH, 0
     _asm MOV AL, 3
@@ -2748,6 +2756,8 @@ void MOSTRA_TELA_DIFICIL()
     _asm MOV AL, 0
     _asm lea si, TELA_RECORD
     PRINT_ICON();
+
+    MOSTRA_RECORD();
     
     _asm MOV AH, 0
     _asm MOV AL, 3
@@ -2919,8 +2929,8 @@ void MOSTRA_TELA_ATENCAO()
 
 void MOSTRA_PONTUACAO()
 {
-    _asm MOV AH, 0 
-    _asm MOV AL, 4
+    _asm MOV AH, 2 
+    _asm MOV AL, 5
     GLCD_GOTO_XY_TEXT();    
     _asm mov al, pontuacao
     MANDAR_NUMERO_LCD();
@@ -2928,7 +2938,11 @@ void MOSTRA_PONTUACAO()
 
 void MOSTRA_RECORD()
 {
-
+    _asm MOV AH, 2 
+    _asm MOV AL, 2
+    GLCD_GOTO_XY_TEXT();    
+    _asm mov al, record
+    MANDAR_NUMERO_LCD();
 }
 
 //funcao principal
